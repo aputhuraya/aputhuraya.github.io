@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- PROTOTYPE variant B, Stage: card grid work, blue principles band, photo slider for talks. Throwaway. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anish Puthuraya</title>
+  <meta name="description" content="Anish Puthuraya, Data &amp; AI Leader. Leading data engineering and AI in the hospitality industry.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232242e8'/%3E%3Ctext x='16' y='23' font-family='Arial, sans-serif' font-size='19' font-weight='800' fill='%23fafaf6' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+  /* variant B additions. Colors come from the :root tokens in styles.css. */
+
+  button, input { font-family: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .lead :focus-visible, .contact :focus-visible { outline-color: var(--bg); }
+
+  /* small text on blue uses #e6e9fd because --blue-light is about 4.1:1 on --blue */
+  .contact-label, .contact-location { color: #e6e9fd; }
+  .edu-label { text-transform: uppercase; }
+
+  /* focus strip, directly under the hero where the platform strip was */
+  .focus { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .focus-cell { padding: 26px 32px; border-right: 1px solid var(--rule); }
+  .focus-cell:last-child { border-right: none; }
+  .focus-num { display: block; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; color: var(--blue); }
+  .focus-name { display: block; margin-top: 8px; font-size: 20px; font-weight: 800; line-height: 1.2; }
+
+  /* section frame: label in the left column, body on the right */
+  .vb-section { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding: 64px; border-bottom: 1px solid var(--rule); }
+  .vb-body { grid-column: span 10; min-width: 0; }
+
+  /* 01 work: card grid */
+  .work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .wcard { margin: 0; min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--rule); }
+  .wchart { margin: 0; padding: 24px; background: #f1f0ea; }
+  .wchart-box { height: 160px; }
+  .wchart-box svg { display: block; width: 100%; height: 100%; }
+  .wchart figcaption { margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .wcard-body { flex: 1; padding: 24px; }
+  .wcard-num { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: var(--blue); }
+  .wcard h3 { margin-top: 8px; font-size: 24px; font-weight: 900; line-height: 1.05; letter-spacing: -0.01em; text-transform: uppercase; }
+  .wcard-tags { margin-top: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--blue); }
+  .wcard-lines { margin: 24px 0 0; }
+  .wcard-lines > div + div { margin-top: 18px; }
+  .wcard-lines dt { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+  .wcard-lines dd { margin: 4px 0 0; font-size: 15px; line-height: 1.5; color: var(--body); }
+
+  /* chart marks */
+  .chart-line { stroke: var(--ink); stroke-width: 2; }
+  .chart-tick { stroke: var(--ink); stroke-width: 1.5; }
+  .chart-num { font-size: 11px; fill: var(--muted); }
+  .chart-hollow { fill: #f1f0ea; stroke: var(--ink); stroke-width: 2; }
+  .chart-live { fill: var(--blue); }
+  .chart-lbl { font-size: 13px; font-weight: 600; fill: var(--ink); }
+  .chart-base { stroke: var(--ink); stroke-width: 1; }
+  .bar-before { fill: #b9b6ab; }
+  .bar-after { fill: var(--blue); }
+  .chart-val { font-size: 15px; font-weight: 800; fill: var(--ink); }
+  .chart-cat { font-size: 13px; fill: var(--muted); }
+  .chart-box { fill: var(--bg); stroke: var(--ink); stroke-width: 1; }
+  .chart-box-on { fill: var(--blue); stroke: var(--blue); }
+  .chart-box-t { font-size: 13px; font-weight: 600; fill: var(--ink); }
+  .chart-box-t-on { fill: var(--bg); }
+  .chart-arrow { stroke: var(--ink); stroke-width: 1.5; }
+  .chart-arrow-head { fill: var(--ink); }
+
+  /* 02 how I lead: full-bleed blue band */
+  .lead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); background: var(--blue); color: var(--bg); border-bottom: none; }
+  .lead .section-label { color: #e6e9fd; }
+  .principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--blue-rule); }
+  .principle { padding: 40px 44px; background: var(--blue); }
+  .principle-num { font-size: 14px; font-weight: 600; letter-spacing: 0.08em; color: #e6e9fd; }
+  .principle h3 { margin-top: 14px; font-size: 26px; font-weight: 800; line-height: 1.2; color: var(--bg); }
+  .principle-proof { margin-top: 14px; font-size: 15px; line-height: 1.55; color: #e6e9fd; }
+
+  /* 03 talks: photo stage and talk list */
+  .stage { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); border: 1px solid var(--rule); background: var(--bg); }
+  .stage-media { min-width: 0; }
+  .stage-frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #f1f0ea; }
+  .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+  .slide.is-active { display: block; }
+  .stage-controls { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--rule); }
+  .stage-btn { flex: 0 0 44px; width: 44px; height: 44px; padding: 0; border: 1px solid var(--ink); background: var(--bg); color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer; }
+  .stage-btn:hover { background: var(--ink); color: var(--bg); }
+  .stage-dots { flex: 1; min-width: 0; display: flex; justify-content: center; }
+  .dot { position: relative; width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .dot::before { content: ""; position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; box-sizing: border-box; border: 1px solid var(--ink); border-radius: 50%; background: var(--bg); }
+  .dot:hover::before { border-color: var(--blue); }
+  .dot.is-active::before { background: var(--blue); border-color: var(--blue); }
+  .stage-caption { display: flex; flex-direction: column; min-width: 0; padding: 32px; border-left: 1px solid var(--rule); }
+  .cap { display: none; flex: 1; flex-direction: column; }
+  .cap.is-active { display: flex; }
+  .cap-kicker { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+  .cap-event { margin-top: 12px; font-size: 22px; font-weight: 800; line-height: 1.2; }
+  .cap-title { margin-top: 12px; font-size: 17px; line-height: 1.45; color: var(--body); }
+  .cap-meta { margin-top: 12px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .cap-count { margin-top: auto; padding-top: 24px; font-size: 13px; font-weight: 600; }
+
+  .talk-list { margin-top: 56px; border-top: 1px solid var(--rule); }
+  .talk-row { border-bottom: 1px solid var(--rule); }
+  .talk-jump { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+  .talk-jump:hover .talk-event { color: var(--blue); }
+  .talk-cells { display: grid; grid-template-columns: 150px minmax(0, 1.3fr) minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: baseline; padding: 22px 0; }
+  .talk-date { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--blue); }
+  .talk-event { font-size: 17px; font-weight: 800; line-height: 1.3; }
+  .talk-title { font-size: 15px; line-height: 1.5; color: var(--body); }
+  .talk-format { font-size: 13px; color: var(--muted); }
+  .talk-room { display: block; margin-top: 4px; }
+  .badge { display: inline-block; margin-left: 10px; padding: 3px 8px; vertical-align: 2px; background: var(--blue); color: var(--bg); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; }
+
+  /* below 1200px the label sits above the body */
+  @media (max-width: 1200px) {
+    .vb-section, .lead { display: block; }
+    .vb-body { margin-top: 28px; }
+  }
+
+  /* phone and tablet, existing 900px breakpoint */
+  @media (max-width: 900px) {
+    .focus { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .focus-cell { padding: 20px; border-bottom: 1px solid var(--rule); }
+    .focus-cell:nth-child(2n) { border-right: none; }
+    .focus-cell:nth-child(n+3) { border-bottom: none; }
+
+    .vb-section, .lead { padding: 40px 20px; }
+    .vb-body { margin-top: 12px; }
+
+    .work-grid { grid-template-columns: 1fr; gap: 20px; }
+    .wchart { padding: 20px; }
+    .wcard-body { padding: 20px; }
+
+    .principles { grid-template-columns: 1fr; }
+    .principle { padding: 28px 20px; }
+    .principle h3 { font-size: 22px; }
+
+    .stage { grid-template-columns: minmax(0, 1fr); }
+    .stage-caption { padding: 24px 20px; border-left: none; border-top: 1px solid var(--rule); }
+    .stage-controls { gap: 8px; padding: 12px; }
+    .dot { width: 36px; }
+    .cap-event { font-size: 20px; }
+
+    .talk-list { margin-top: 40px; }
+    .talk-cells { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 18px 0; }
+    .talk-event { font-size: 17px; }
+  }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-name">ANISH PUTHURAYA</div>
+    <nav class="nav-links">
+      <a class="nav-link" href="#work">Work</a>
+      <a class="nav-link" href="#talks">Talks</a>
+      <a class="nav-link" href="#experience">Experience</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label">DATA &amp; AI LEADER</div>
+    <div class="hero-content">
+      <h1>Leading data engineering and AI in the hospitality industry.</h1>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-secondary" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="../assets/portrait.jpg" alt="Anish Puthuraya">
+    </div>
+  </section>
+
+  <div class="focus">
+    <div class="focus-cell"><span class="focus-num">01</span><span class="focus-name">Data strategy</span></div>
+    <div class="focus-cell"><span class="focus-num">02</span><span class="focus-name">Platform architecture</span></div>
+    <div class="focus-cell"><span class="focus-num">03</span><span class="focus-name">Data governance</span></div>
+    <div class="focus-cell"><span class="focus-num">04</span><span class="focus-name">Applied AI</span></div>
+  </div>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-value">7+</div>
+      <div class="stat-label">Years in data</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">40% &rarr; 16%</div>
+      <div class="stat-label">Forecast error, after measuring it</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value stat-accent">600+</div>
+      <div class="stat-label">AI changes, each approved by a person</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Talks given in 2026</div>
+    </div>
+  </section>
+
+  <section class="vb-section" id="work">
+    <div class="section-label">01 / WORK</div>
+    <div class="vb-body">
+      <div class="work-grid">
+
+        <article class="wcard">
+          <figure class="wchart">
+            <div class="wchart-box">
+              <svg viewBox="0 0 360 120" role="img" aria-label="Prototype to production: 10 weeks">
+                <line class="chart-line" x1="24" y1="60" x2="336" y2="60"/>
+                <line class="chart-tick" x1="55.2" y1="54" x2="55.2" y2="66"/>
+                <line class="chart-tick" x1="86.4" y1="54" x2="86.4" y2="66"/>
+                <line class="chart-tick" x1="117.6" y1="54" x2="117.6" y2="66"/>
+                <line class="chart-tick" x1="148.8" y1="54" x2="148.8" y2="66"/>
+                <line class="chart-tick" x1="180" y1="54" x2="180" y2="66"/>
+                <line class="chart-tick" x1="211.2" y1="54" x2="211.2" y2="66"/>
+                <line class="chart-tick" x1="242.4" y1="54" x2="242.4" y2="66"/>
+                <line class="chart-tick" x1="273.6" y1="54" x2="273.6" y2="66"/>
+                <line class="chart-tick" x1="304.8" y1="54" x2="304.8" y2="66"/>
+                <line class="chart-tick" x1="336" y1="54" x2="336" y2="66"/>
+                <text class="chart-num" x="55.2" y="88" text-anchor="middle">1</text>
+                <text class="chart-num" x="86.4" y="88" text-anchor="middle">2</text>
+                <text class="chart-num" x="117.6" y="88" text-anchor="middle">3</text>
+                <text class="chart-num" x="148.8" y="88" text-anchor="middle">4</text>
+                <text class="chart-num" x="180" y="88" text-anchor="middle">5</text>
+                <text class="chart-num" x="211.2" y="88" text-anchor="middle">6</text>
+                <text class="chart-num" x="242.4" y="88" text-anchor="middle">7</text>
+                <text class="chart-num" x="273.6" y="88" text-anchor="middle">8</text>
+                <text class="chart-num" x="304.8" y="88" text-anchor="middle">9</text>
+                <text class="chart-num" x="336" y="88" text-anchor="middle">10</text>
+                <circle class="chart-hollow" cx="24" cy="60" r="6"/>
+                <circle class="chart-live" cx="336" cy="60" r="6"/>
+                <text class="chart-lbl" x="18" y="34">Prototype</text>
+                <text class="chart-lbl" x="342" y="34" text-anchor="end">Live</text>
+              </svg>
+            </div>
+            <figcaption>Prototype to production: 10 weeks</figcaption>
+          </figure>
+          <div class="wcard-body">
+            <div class="wcard-num">01</div>
+            <h3>Revenue planning app</h3>
+            <p class="wcard-tags">WEB APP &middot; MICROSOFT FABRIC &middot; AZURE</p>
+            <dl class="wcard-lines">
+              <div>
+                <dt>Problem</dt>
+                <dd>Forecasts and budgets lived in a vendor tool, an Access app and spreadsheets.</dd>
+              </div>
+              <div>
+                <dt>Move</dt>
+                <dd>Took a design prototype to production with 2 engineers and AI coding agents, behind automated release checks.</dd>
+              </div>
+              <div>
+                <dt>Result</dt>
+                <dd>In production in 10 weeks, now in pilot. Daily, monthly and P&amp;L views agree to the penny.</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="wcard">
+          <figure class="wchart">
+            <div class="wchart-box">
+              <svg viewBox="0 0 320 160" role="img" aria-label="Forecast error: Before 40%, After 16%">
+                <line class="chart-base" x1="20" y1="128" x2="300" y2="128"/>
+                <rect class="bar-before" x="50" y="32" width="100" height="96"/>
+                <rect class="bar-after" x="170" y="89.6" width="100" height="38.4"/>
+                <text class="chart-val" x="100" y="24" text-anchor="middle">40%</text>
+                <text class="chart-val" x="220" y="82" text-anchor="middle">16%</text>
+                <text class="chart-cat" x="100" y="150" text-anchor="middle">Before</text>
+                <text class="chart-cat" x="220" y="150" text-anchor="middle">After</text>
+              </svg>
+            </div>
+            <figcaption>Forecast error</figcaption>
+          </figure>
+          <div class="wcard-body">
+            <div class="wcard-num">02</div>
+            <h3>Forecasting platform</h3>
+            <p class="wcard-tags">MACHINE LEARNING &middot; MICROSOFT FABRIC</p>
+            <dl class="wcard-lines">
+              <div>
+                <dt>Problem</dt>
+                <dd>Forecasts drove decisions, but no one had measured how far off they were.</dd>
+              </div>
+              <div>
+                <dt>Move</dt>
+                <dd>Tested every model against real results, then fixed the defects the numbers showed.</dd>
+              </div>
+              <div>
+                <dt>Result</dt>
+                <dd>Error on past data fell from 40% to 16%. Monthly forecasts now cover 100+ hotels.</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="wcard">
+          <figure class="wchart">
+            <div class="wchart-box">
+              <svg viewBox="0 0 340 160" role="img" aria-label="Draft, Dry run, Person approves, Applied">
+                <line class="chart-arrow" x1="150" y1="40" x2="182" y2="40"/>
+                <polygon class="chart-arrow-head" points="190,40 182,35 182,45"/>
+                <line class="chart-arrow" x1="260" y1="60" x2="260" y2="92"/>
+                <polygon class="chart-arrow-head" points="260,100 255,92 265,92"/>
+                <line class="chart-arrow" x1="190" y1="120" x2="158" y2="120"/>
+                <polygon class="chart-arrow-head" points="150,120 158,115 158,125"/>
+                <rect class="chart-box" x="10" y="20" width="140" height="40"/>
+                <text class="chart-box-t" x="80" y="40" text-anchor="middle" dominant-baseline="middle">Draft</text>
+                <rect class="chart-box" x="190" y="20" width="140" height="40"/>
+                <text class="chart-box-t" x="260" y="40" text-anchor="middle" dominant-baseline="middle">Dry run</text>
+                <rect class="chart-box chart-box-on" x="190" y="100" width="140" height="40"/>
+                <text class="chart-box-t chart-box-t-on" x="260" y="120" text-anchor="middle" dominant-baseline="middle">Person approves</text>
+                <rect class="chart-box" x="10" y="100" width="140" height="40"/>
+                <text class="chart-box-t" x="80" y="120" text-anchor="middle" dominant-baseline="middle">Applied</text>
+              </svg>
+            </div>
+            <figcaption>600+ changes, 0 unattended</figcaption>
+          </figure>
+          <div class="wcard-body">
+            <div class="wcard-num">03</div>
+            <h3>Database knowledge agent</h3>
+            <p class="wcard-tags">AI AGENTS &middot; GOVERNANCE</p>
+            <dl class="wcard-lines">
+              <div>
+                <dt>Problem</dt>
+                <dd>An 8.2 TB production database had no documentation.</dd>
+              </div>
+              <div>
+                <dt>Move</dt>
+                <dd>Built an AI agent that maps and documents it, and asks a person before any change.</dd>
+              </div>
+              <div>
+                <dt>Result</dt>
+                <dd>600+ changes made. Every one approved by a person.</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="vb-section lead" id="lead">
+    <div class="section-label">02 / HOW I LEAD</div>
+    <div class="vb-body">
+      <div class="principles">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <h3>Check the number where people read it.</h3>
+          <p class="principle-proof">Every fix is checked in the report people use, not only in the table.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <h3>No AI change goes live until a person approves it.</h3>
+          <p class="principle-proof">600+ AI changes so far. None ran on their own.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <h3>When the data says a claim is wrong, take the claim back.</h3>
+          <p class="principle-proof">We retracted our own "model beats humans" result after a units check.</p>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <h3>Every finding ends as explained, ruled out, or still open.</h3>
+          <p class="principle-proof">Nothing gets dropped because a tidier story came along.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vb-section" id="talks">
+    <div class="section-label">03 / TALKS</div>
+    <div class="vb-body">
+
+      <div class="stage" data-stage>
+        <div class="stage-media">
+          <div class="stage-frame">
+            <img class="slide is-active" data-slide src="../assets/talks/pgh-teaching-duo.jpg" alt="Anish Puthuraya speaking at Day of Data Pittsburgh (SQLSaturday)">
+            <img class="slide" data-slide src="../assets/talks/pgh-speaking-duo.jpg" alt="Anish Puthuraya speaking at Day of Data Pittsburgh (SQLSaturday)" loading="lazy">
+            <img class="slide" data-slide src="../assets/talks/phl-stage-duo.jpg" alt="Anish Puthuraya speaking at devopsdays Philadelphia" loading="lazy">
+            <img class="slide" data-slide src="../assets/talks/phl-gesture-duo.jpg" alt="Anish Puthuraya speaking at devopsdays Philadelphia" loading="lazy">
+            <img class="slide" data-slide src="../assets/talks/phl-badge-duo.jpg" alt="Anish Puthuraya speaking at devopsdays Philadelphia" loading="lazy">
+          </div>
+          <div class="stage-controls">
+            <button type="button" class="stage-btn" data-prev aria-label="Previous">&larr;</button>
+            <div class="stage-dots">
+              <button type="button" class="dot is-active" data-dot aria-label="Slide 1" aria-current="true"></button>
+              <button type="button" class="dot" data-dot aria-label="Slide 2"></button>
+              <button type="button" class="dot" data-dot aria-label="Slide 3"></button>
+              <button type="button" class="dot" data-dot aria-label="Slide 4"></button>
+              <button type="button" class="dot" data-dot aria-label="Slide 5"></button>
+            </div>
+            <button type="button" class="stage-btn" data-next aria-label="Next">&rarr;</button>
+          </div>
+        </div>
+
+        <div class="stage-caption" aria-live="polite">
+          <div class="cap is-active" data-cap>
+            <p class="cap-kicker">Oct 10, 2026 &middot; Pittsburgh, PA</p>
+            <p class="cap-event">Day of Data Pittsburgh (SQLSaturday)</p>
+            <p class="cap-title">The Best Model Was a Ratio: Hybrid Forecasting on Microsoft Fabric</p>
+            <p class="cap-meta">60-minute session &middot; Data professionals at a free, community-run conference</p>
+            <p class="cap-count">1 / 5</p>
+          </div>
+          <div class="cap" data-cap>
+            <p class="cap-kicker">Oct 10, 2026 &middot; Pittsburgh, PA</p>
+            <p class="cap-event">Day of Data Pittsburgh (SQLSaturday)</p>
+            <p class="cap-title">The Best Model Was a Ratio: Hybrid Forecasting on Microsoft Fabric</p>
+            <p class="cap-meta">60-minute session &middot; Data professionals at a free, community-run conference</p>
+            <p class="cap-count">2 / 5</p>
+          </div>
+          <div class="cap" data-cap>
+            <p class="cap-kicker">Oct 2, 2026 &middot; Philadelphia, PA</p>
+            <p class="cap-event">devopsdays Philadelphia</p>
+            <p class="cap-title">We Gave the Agent Production Credentials</p>
+            <p class="cap-meta">Ignite talk &middot; DevOps and platform engineers</p>
+            <p class="cap-count">3 / 5</p>
+          </div>
+          <div class="cap" data-cap>
+            <p class="cap-kicker">Oct 2, 2026 &middot; Philadelphia, PA</p>
+            <p class="cap-event">devopsdays Philadelphia</p>
+            <p class="cap-title">We Gave the Agent Production Credentials</p>
+            <p class="cap-meta">Ignite talk &middot; DevOps and platform engineers</p>
+            <p class="cap-count">4 / 5</p>
+          </div>
+          <div class="cap" data-cap>
+            <p class="cap-kicker">Oct 2, 2026 &middot; Philadelphia, PA</p>
+            <p class="cap-event">devopsdays Philadelphia</p>
+            <p class="cap-title">We Gave the Agent Production Credentials</p>
+            <p class="cap-meta">Ignite talk &middot; DevOps and platform engineers</p>
+            <p class="cap-count">5 / 5</p>
+          </div>
+        </div>
+      </div>
+
+      <ul class="talk-list">
+        <li class="talk-row">
+          <span class="talk-cells">
+            <span class="talk-date">Oct 19-20, 2026</span>
+            <span class="talk-event">devopsdays Boston<span class="badge">UPCOMING</span></span>
+            <span class="talk-title">We Gave the Agent Production Credentials</span>
+            <span class="talk-format">Conference session</span>
+          </span>
+        </li>
+        <li class="talk-row">
+          <button type="button" class="talk-jump" data-jump="0">
+            <span class="talk-cells">
+              <span class="talk-date">Oct 10, 2026</span>
+              <span class="talk-event">Day of Data Pittsburgh (SQLSaturday)</span>
+              <span class="talk-title">The Best Model Was a Ratio: Hybrid Forecasting on Microsoft Fabric</span>
+              <span class="talk-format">60-minute session</span>
+            </span>
+          </button>
+        </li>
+        <li class="talk-row">
+          <button type="button" class="talk-jump" data-jump="2">
+            <span class="talk-cells">
+              <span class="talk-date">Oct 2, 2026</span>
+              <span class="talk-event">devopsdays Philadelphia</span>
+              <span class="talk-title">We Gave the Agent Production Credentials</span>
+              <span class="talk-format">Ignite talk</span>
+            </span>
+          </button>
+        </li>
+        <li class="talk-row">
+          <span class="talk-cells">
+            <span class="talk-date">Mar 19, 2026</span>
+            <span class="talk-event">SIM Boston (Society for Information Management)</span>
+            <span class="talk-title">Build Trust in Your Data with Transparency</span>
+            <span class="talk-format">Interactive session<span class="talk-room">CIOs and technology executives</span></span>
+          </span>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+  <section class="experience" id="experience">
+    <div class="section-label">04 / EXPERIENCE</div>
+    <div class="experience-body">
+
+      <article class="role">
+        <div class="role-meta">
+          <h3>Senior Manager, Data Engineering</h3>
+          <div class="role-subtitle">Data &amp; AI Leader</div>
+          <div class="role-org">Pyramid Global Hospitality &middot; Boston, MA</div>
+          <div class="role-dates">2023 TO PRESENT</div>
+        </div>
+        <div class="role-points">
+          <p>Lead a team of 3 data engineers and partner with the COO and analytics leadership on data strategy.</p>
+          <p>Rebuilt the enterprise data platform on Microsoft Fabric as a medallion lakehouse, joining Opera, Amadeus, Salesforce and Delphi data.</p>
+          <p>Moved 250+ Azure workloads from personal logins to managed identities, with no major failures.</p>
+          <p>Cut cloud costs through an infrastructure audit, and built AI data quality checks that run five times a day.</p>
+        </div>
+      </article>
+
+      <article class="role">
+        <div class="role-meta">
+          <h3>Associate II</h3>
+          <div class="role-org">PwC &middot; Bangalore, India</div>
+          <div class="role-dates">2021 TO 2022</div>
+        </div>
+        <div class="role-points">
+          <p>Led a two-person Cloud Analytics team for Nordstrom, building inventory tracking.</p>
+          <p>Tuned Spark clusters for 5x higher efficiency and a 50% cut in infrastructure costs.</p>
+          <p>Shipped ML models on Azure Databricks that predict claims.</p>
+        </div>
+      </article>
+
+      <article class="role">
+        <div class="role-meta">
+          <h3>Project Engineer</h3>
+          <div class="role-org">Wipro Technologies &middot; Pune, India</div>
+          <div class="role-dates">2018 TO 2021</div>
+        </div>
+        <div class="role-points">
+          <p>Delivered analytics and automation for enterprise clients with Microsoft Power Platform and Power BI.</p>
+        </div>
+      </article>
+
+      <div class="role education">
+        <div class="role-meta">
+          <div class="edu-label">Education &amp; certification</div>
+        </div>
+        <div class="role-points">
+          <p><strong>M.S. in Business Analytics</strong>, Boston University, Questrom School of Business, 2023</p>
+          <p><strong>B.Tech.</strong>, IIT Bombay, 2018</p>
+          <p><strong>Microsoft Certified:</strong> Azure Data Engineer Associate (DP-203)</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="contact-label">05 / CONTACT</div>
+    <h2 class="contact-headline">Let's talk data.</h2>
+    <a class="contact-email" href="mailto:anish.gopalakrishna@gmail.com">anish.gopalakrishna@gmail.com</a>
+    <div class="contact-bar">
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/anish-puthuraya" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/aputhuraya" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="contact-location">Boston, MA</div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var stage = document.querySelector('[data-stage]');
+    if (!stage) { return; }
+    var slides = stage.querySelectorAll('[data-slide]');
+    var caps = stage.querySelectorAll('[data-cap]');
+    var dots = stage.querySelectorAll('[data-dot]');
+    var total = slides.length;
+    var current = 0;
+
+    function show(index) {
+      current = ((index % total) + total) % total;
+      for (var i = 0; i < total; i++) {
+        var on = i === current;
+        slides[i].classList.toggle('is-active', on);
+        caps[i].classList.toggle('is-active', on);
+        dots[i].classList.toggle('is-active', on);
+        if (on) {
+          dots[i].setAttribute('aria-current', 'true');
+        } else {
+          dots[i].removeAttribute('aria-current');
+        }
+      }
+    }
+
+    stage.querySelector('[data-prev]').addEventListener('click', function () { show(current - 1); });
+    stage.querySelector('[data-next]').addEventListener('click', function () { show(current + 1); });
+
+    for (var d = 0; d < total; d++) {
+      dots[d].addEventListener('click', (function (index) {
+        return function () { show(index); };
+      })(d));
+    }
+
+    var jumps = document.querySelectorAll('[data-jump]');
+    for (var j = 0; j < jumps.length; j++) {
+      jumps[j].addEventListener('click', (function (btn) {
+        return function () {
+          show(Number(btn.getAttribute('data-jump')));
+          stage.scrollIntoView({ block: 'nearest' });
+        };
+      })(jumps[j]));
+    }
+  })();
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

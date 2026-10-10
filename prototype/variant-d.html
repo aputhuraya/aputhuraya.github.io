@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- PROTOTYPE variant D: A's layout, B's How I lead band, C's Talks, 2-cell strip, motion containers. Mode from ?motion=light|full. Throwaway. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anish Puthuraya</title>
+  <meta name="description" content="Anish Puthuraya, Data &amp; AI Leader. Leading data engineering and AI in the hospitality industry.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232242e8'/%3E%3Ctext x='16' y='23' font-family='Arial, sans-serif' font-size='19' font-weight='800' fill='%23fafaf6' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* ---- variant D: A's layout, B's How I lead band, C's Talks ---- */
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+    .contact a:focus-visible { outline-color: var(--bg); }
+    button { font: inherit; color: inherit; }
+
+    /* ---- hero: focus areas in one row ---- */
+
+    .focus {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 10px;
+      margin-top: 36px;
+    }
+    .focus li {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.2;
+      padding: 2px 22px;
+      border-left: 1px solid var(--rule);
+    }
+    .focus li:first-child { padding-left: 0; border-left: none; }
+
+    /* ---- hero: skyline under the buttons ---- */
+
+    .hero { padding-bottom: 0; }
+    .hero-skyline { grid-column: 1 / -1; margin-top: 48px; }
+    .hero-skyline .anim { height: 110px; }
+
+    /* ---- stats: two cells ---- */
+
+    .stats-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      border-bottom: 1px solid var(--rule);
+    }
+    .stat2 {
+      position: relative;
+      min-width: 0;
+      padding: 36px 64px;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+    }
+    .stat2 + .stat2 { border-left: 1px solid var(--rule); }
+    .stat2-value {
+      font-size: clamp(56px, 7vw, 96px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .stat2-accent { color: var(--blue); }
+    .stat2-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      max-width: 180px;
+    }
+    .count-rule {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      bottom: 0;
+      height: 2px;
+      background: var(--blue);
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    /* ---- sections: label in columns 1-2, body in columns 3-12 ---- */
+
+    .project-body, .lead-body, .experience-body {
+      grid-column: 3 / span 10;
+      min-width: 0;
+    }
+
+    /* ---- 01 work ---- */
+
+    .project-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; }
+    .project-num { font-size: 15px; font-weight: 800; letter-spacing: 0.04em; color: var(--blue); }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+      gap: 32px;
+      align-items: start;
+      margin-top: 32px;
+    }
+    .project-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .fact-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .fact p { font-size: 16px; line-height: 1.55; color: var(--body); margin-top: 10px; }
+
+    .chart { margin: 0; }
+    .chart svg { display: block; width: 100%; height: auto; max-height: 180px; }
+    .chart figcaption { font-size: 13px; color: var(--muted); margin-top: 14px; }
+
+    .tl-line, .tl-tick { stroke: var(--ink); stroke-width: 1.5; }
+    .tl-hollow { fill: var(--bg); stroke: var(--ink); stroke-width: 2; }
+    .tl-filled { fill: var(--blue); }
+    .tl-num { font-size: 12px; fill: var(--muted); text-anchor: middle; }
+    .tl-label { font-size: 13px; font-weight: 600; fill: var(--ink); }
+
+    .bar-before { fill: #b9b6ab; }
+    .bar-after { fill: var(--blue); }
+    .bar-label { font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .bar-value { font-size: 16px; font-weight: 800; fill: var(--ink); }
+
+    .flow-box { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
+    .flow-box-hot { fill: var(--blue); stroke: var(--blue); }
+    .flow-text { font-size: 12px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+    .flow-text-hot { fill: var(--bg); }
+    .flow-line { stroke: var(--ink); stroke-width: 1.5; }
+    .flow-head { fill: var(--ink); }
+
+    /* ---- 01 work: motion containers in projects 02 and 03 ---- */
+
+    .anim-curve { aspect-ratio: 16 / 10; margin-bottom: 16px; }
+    .anim-curve + svg { max-height: 110px; }
+
+    .project-extra {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .extra-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .anim-shap { aspect-ratio: 3 / 1; min-height: 200px; }
+    .anim-map { aspect-ratio: 21 / 9; }
+
+    /* ---- 02 how I lead: full-bleed blue band (from B, classes prefixed lead-) ---- */
+
+    .lead-band {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 24px;
+      padding: 64px;
+      background: var(--blue);
+      color: var(--bg);
+    }
+    .lead-band .section-label { color: #e6e9fd; }
+    .lead-principles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--blue-rule);
+    }
+    .lead-principle { min-width: 0; padding: 40px 44px; background: var(--blue); }
+    .lead-num { font-size: 14px; font-weight: 600; letter-spacing: 0.08em; color: #e6e9fd; }
+    .lead-principle h3 { margin-top: 14px; font-size: 26px; font-weight: 800; line-height: 1.2; color: var(--bg); }
+    .lead-proof { margin-top: 14px; font-size: 15px; line-height: 1.55; color: #e6e9fd; }
+    .anim-stairs { height: 140px; margin: 8px 0 24px; }
+    .anim-doors { aspect-ratio: 3 / 1; margin-top: 18px; }
+
+    /* ---- 03 talks: section frame, timeline, photo mosaic, lightbox (from C) ---- */
+
+    .sec { padding: 64px; border-bottom: 1px solid var(--rule); }
+    .sec-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .talks-tl { position: relative; height: 190px; margin: 0 0 40px; }
+    .talks-tl-axis { position: absolute; inset: 0; }
+    .talks-tl-line { position: absolute; left: 0; right: 0; top: 110px; height: 1px; background: var(--ink); }
+    .talks-tl-tick { position: absolute; top: 110px; left: var(--x); width: 1px; height: 8px; background: var(--ink); }
+    .talks-tl-month {
+      position: absolute;
+      top: 124px;
+      left: var(--x);
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .talks-tl-events { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+    .talks-tl-marker {
+      position: absolute;
+      top: 110px;
+      left: var(--x);
+      width: 0;
+      height: 0;
+      list-style: none;
+    }
+    .talks-tl-dot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 14px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: var(--blue);
+    }
+    .talks-tl-upcoming .talks-tl-dot { width: 16px; height: 16px; background: var(--bg); border: 2px solid var(--blue); }
+    .talks-tl-stem { position: absolute; left: 0; width: 1px; height: 40px; background: var(--ink); }
+    .talks-tl-up .talks-tl-stem { bottom: 0; }
+    .talks-tl-down .talks-tl-stem { top: 0; }
+    .talks-tl-label { position: absolute; white-space: nowrap; line-height: 1.3; }
+    .talks-tl-up .talks-tl-label { bottom: 40px; }
+    .talks-tl-down .talks-tl-label { top: 40px; }
+    .talks-tl-left .talks-tl-label { left: 0; text-align: left; }
+    .talks-tl-right .talks-tl-label { right: 0; text-align: right; }
+    .talks-tl-label strong { display: block; font-size: 14px; font-weight: 700; }
+    .talks-tl-date { font-size: 13px; color: var(--muted); }
+
+    .tag-up {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 6px;
+      background: var(--blue);
+      color: var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      vertical-align: 1px;
+    }
+
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 180px;
+      gap: 8px;
+      margin: 0 0 56px;
+    }
+    .tile-wide { grid-column: span 2; }
+    .tile-tall { grid-row: span 2; }
+    .tile-photo {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      background: var(--ink);
+      cursor: pointer;
+    }
+    .tile-photo img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .tile-photo img[src$="phl-stage.jpg"] { object-position: center 78%; }
+    .tile-photo img[src$="pgh-teaching.jpg"] { object-position: center 60%; }
+    .tile-cap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 8px 12px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: left;
+    }
+    .tile-type {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-width: 0;
+      height: 100%;
+      padding: 18px 20px;
+      background: var(--ink);
+      color: var(--bg);
+      overflow: hidden;
+    }
+    .tile-type--blue { background: var(--blue); }
+    .tile-event { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+    .tile-title { font-size: 20px; font-weight: 800; line-height: 1.2; margin-top: 8px; }
+    .tile-date { font-size: 13px; margin-top: 10px; }
+    .tile-type--blue .tag-up { background: var(--bg); color: var(--blue); }
+
+    .talk-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+    .talk-row {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1.3fr) minmax(0, 1.6fr) minmax(0, 1.2fr);
+      column-gap: 24px;
+      align-items: baseline;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .talk-date { font-size: 14px; font-weight: 700; }
+    .talk-event { min-width: 0; }
+    .talk-name { font-size: 16px; font-weight: 700; }
+    .talk-paren { font-size: 14px; font-weight: 500; color: var(--muted); }
+    .talk-place { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .talk-title { font-size: 16px; font-weight: 600; }
+    .talk-format { font-size: 14px; color: var(--body); }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      background: rgba(22, 21, 15, 0.92);
+    }
+    .lightbox[hidden] { display: none; }
+    .lb-figure {
+      margin: 0;
+      max-width: 90vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .lb-img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+    .lb-caption { text-align: center; color: var(--bg); }
+    .lb-meta { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+    .lb-title { font-size: 18px; font-weight: 800; line-height: 1.3; margin-top: 4px; }
+    .lb-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .lb-close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+    .lightbox :focus-visible { outline-color: var(--bg); }
+
+    /* ---- 04 experience ---- */
+
+    .role-dates { text-transform: uppercase; }
+    .edu-label { text-transform: uppercase; }
+
+    /* ---- 05 contact (blue ground: text must be the light ink) ---- */
+
+    .contact-label { color: var(--bg); }
+    .contact-location { color: var(--bg); }
+    .contact-email:hover { color: var(--bg); text-decoration: underline; }
+    .contact-links a:hover { color: var(--bg); text-decoration: underline; }
+
+    /* ---- motion containers (prototype) ---- */
+
+    .anim {
+      position: relative;
+      --a-ink: #16150f;
+      --a-muted: #55534a;
+      --a-soft: #c9c6bc;
+      --a-paper: #fafaf6;
+      --a-accent: #2242e8;
+      --a-accent-soft: #b9c4f7;
+      --a-alert: #c2412d;
+    }
+    .anim[data-theme="onblue"] {
+      --a-ink: #fafaf6;
+      --a-muted: #e6e9fd;
+      --a-soft: rgba(250, 250, 246, 0.42);
+      --a-paper: #2242e8;
+      --a-accent: #fafaf6;
+      --a-accent-soft: rgba(250, 250, 246, 0.22);
+      --a-alert: #ffd166;
+      color: #fafaf6;
+    }
+    .anim > canvas, .anim > svg { display: block; width: 100%; height: 100%; }
+
+    /* ---- tablet: the How I lead band stacks its label above the body ---- */
+
+    @media (max-width: 1200px) {
+      .lead-band { display: block; }
+      .lead-band .lead-body { margin-top: 28px; }
+    }
+
+    /* ---- tablet and phone ---- */
+
+    @media (max-width: 900px) {
+      .hero-content h1 { margin-top: 0; }
+      .focus {
+        order: 3;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 14px;
+        margin-top: 22px;
+      }
+      .focus li { padding: 0 0 0 16px; border-left: 1px solid var(--rule); }
+      .focus li:nth-child(odd) { padding-left: 0; border-left: none; }
+
+      .hero-skyline { order: 5; margin-top: 32px; }
+      .hero-skyline .anim { height: 80px; }
+
+      .stats-2 { grid-template-columns: minmax(0, 1fr); }
+      .stat2 { padding: 24px 20px; flex-wrap: wrap; }
+      .stat2 + .stat2 { border-left: none; border-top: 1px solid var(--rule); }
+      .count-rule { left: 20px; right: 20px; }
+
+      .project, .experience { display: block; padding: 40px 20px; }
+      .project-body, .lead-body, .experience-body { margin-top: 12px; }
+      .project-head { flex-direction: column; align-items: flex-start; }
+      .project-head h2 { font-size: 28px; }
+      .project-tags { order: 2; margin-top: 6px; font-size: 12px; }
+      .project-grid { grid-template-columns: 1fr; gap: 24px; margin-top: 20px; }
+      .project-facts { grid-template-columns: 1fr; gap: 18px; }
+
+      .anim-shap { aspect-ratio: 4 / 3; }
+      .anim-map { aspect-ratio: 4 / 3; }
+
+      .lead-band { display: block; padding: 40px 20px; }
+      .lead-band .lead-body { margin-top: 12px; }
+      .anim-stairs { height: 110px; }
+      .lead-principles { grid-template-columns: 1fr; }
+      .lead-principle { padding: 28px 20px; }
+      .lead-principle h3 { font-size: 22px; }
+      .lead-proof { font-size: 14px; }
+      .anim-doors { aspect-ratio: 3 / 2; }
+
+      .sec { padding: 40px 20px; }
+      .sec-label { margin-bottom: 24px; }
+
+      .talks-tl { height: auto; margin-bottom: 32px; }
+      .talks-tl-axis { display: none; }
+      .talks-tl-events { position: static; display: flex; flex-direction: column; gap: 18px; }
+      .talks-tl-marker {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .talks-tl-stem { display: none; }
+      .talks-tl-dot { position: relative; left: auto; top: auto; transform: none; flex: 0 0 auto; margin-top: 4px; }
+      .talks-tl-label { position: static; white-space: normal; }
+
+      .mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 40px; }
+      .tile-type { padding: 14px; }
+      .tile-title { font-size: 16px; }
+      .tile-cap { font-size: 12px; }
+
+      .talk-row { display: block; padding: 18px 0; }
+      .talk-row > * + * { margin-top: 6px; }
+
+      .lb-title { font-size: 16px; }
+    }
+  </style>
+</head>
+<body data-motion="light">
+
+  <header class="nav">
+    <div class="nav-name">ANISH PUTHURAYA</div>
+    <nav class="nav-links">
+      <a class="nav-link" href="#work">Work</a>
+      <a class="nav-link" href="#talks">Talks</a>
+      <a class="nav-link" href="#experience">Experience</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label">DATA &amp; AI LEADER</div>
+    <div class="hero-content">
+      <h1>Leading data engineering and AI in the hospitality industry.</h1>
+      <ul class="focus">
+        <li>Data strategy</li>
+        <li>Platform architecture</li>
+        <li>Data governance</li>
+        <li>Applied AI</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-secondary" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="../assets/portrait.jpg" alt="Anish Puthuraya">
+    </div>
+    <div class="hero-skyline"><div class="anim" data-anim="skyline" role="img" aria-label="A row of small hotel buildings"></div></div>
+  </section>
+
+  <section class="stats-2 anim" data-anim="count" aria-label="Highlights">
+    <div class="stat2">
+      <div class="stat2-value"><span class="count" data-to="7" data-suffix="+">7+</span></div>
+      <div class="stat2-label">Years in data</div>
+      <div class="count-rule" aria-hidden="true"></div>
+    </div>
+    <div class="stat2">
+      <div class="stat2-value stat2-accent"><span class="count" data-to="400" data-prefix="$" data-suffix="K+">$400K+</span></div>
+      <div class="stat2-label">Saved every year</div>
+      <div class="count-rule" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+
+    <article class="project">
+      <div class="section-label">01 / WORK</div>
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-title">
+            <span class="project-num">01</span>
+            <h2>Revenue planning app</h2>
+          </div>
+          <div class="project-tags">WEB APP &middot; MICROSOFT FABRIC &middot; AZURE</div>
+        </div>
+        <div class="project-grid">
+          <div class="project-facts">
+            <div class="fact">
+              <div class="fact-label">Problem</div>
+              <p>Forecasts and budgets lived in a vendor tool, an Access app and spreadsheets.</p>
+            </div>
+            <div class="fact">
+              <div class="fact-label">Move</div>
+              <p>Took a design prototype to production with 2 engineers and AI coding agents, behind automated release checks.</p>
+            </div>
+            <div class="fact">
+              <div class="fact-label">Result</div>
+              <p>In production in 10 weeks, now in pilot. Daily, monthly and P&amp;L views agree to the penny.</p>
+            </div>
+          </div>
+          <figure class="metric chart">
+            <svg viewBox="0 0 300 96" role="img" aria-label="Timeline: Prototype at week 0, Live at week 10">
+              <line class="tl-line" x1="20" y1="44" x2="280" y2="44"/>
+              <line class="tl-tick" x1="46" y1="38" x2="46" y2="50"/>
+              <line class="tl-tick" x1="72" y1="38" x2="72" y2="50"/>
+              <line class="tl-tick" x1="98" y1="38" x2="98" y2="50"/>
+              <line class="tl-tick" x1="124" y1="38" x2="124" y2="50"/>
+              <line class="tl-tick" x1="150" y1="38" x2="150" y2="50"/>
+              <line class="tl-tick" x1="176" y1="38" x2="176" y2="50"/>
+              <line class="tl-tick" x1="202" y1="38" x2="202" y2="50"/>
+              <line class="tl-tick" x1="228" y1="38" x2="228" y2="50"/>
+              <line class="tl-tick" x1="254" y1="38" x2="254" y2="50"/>
+              <line class="tl-tick" x1="280" y1="38" x2="280" y2="50"/>
+              <text class="tl-num" x="46" y="68">1</text>
+              <text class="tl-num" x="72" y="68">2</text>
+              <text class="tl-num" x="98" y="68">3</text>
+              <text class="tl-num" x="124" y="68">4</text>
+              <text class="tl-num" x="150" y="68">5</text>
+              <text class="tl-num" x="176" y="68">6</text>
+              <text class="tl-num" x="202" y="68">7</text>
+              <text class="tl-num" x="228" y="68">8</text>
+              <text class="tl-num" x="254" y="68">9</text>
+              <text class="tl-num" x="280" y="68">10</text>
+              <circle class="tl-hollow" cx="20" cy="44" r="6"/>
+              <circle class="tl-filled" cx="280" cy="44" r="6"/>
+              <text class="tl-label" x="20" y="22">Prototype</text>
+              <text class="tl-label" x="280" y="22" text-anchor="end">Live</text>
+            </svg>
+            <figcaption>Prototype to production: 10 weeks</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-title">
+            <span class="project-num">02</span>
+            <h2>Forecasting platform</h2>
+          </div>
+          <div class="project-tags">MACHINE LEARNING &middot; MICROSOFT FABRIC</div>
+        </div>
+        <div class="project-grid">
+          <div class="project-facts">
+            <div class="fact">
+              <div class="fact-label">Problem</div>
+              <p>Forecasts drove decisions, but no one had measured how far off they were.</p>
+            </div>
+            <div class="fact">
+              <div class="fact-label">Move</div>
+              <p>Tested every model against real results, then fixed the defects the numbers showed.</p>
+            </div>
+            <div class="fact">
+              <div class="fact-label">Result</div>
+              <p>Error on past data fell from 40% to 16%. Monthly forecasts now cover 100+ hotels.</p>
+            </div>
+          </div>
+          <figure class="metric chart">
+            <div class="anim anim-curve" data-anim="curve" role="img" aria-label="Booking curve from 12 weeks out to the night"></div>
+            <svg viewBox="0 0 320 124" role="img" aria-label="Forecast error: Before 40%, After 16%">
+              <text class="bar-label" x="0" y="14">Before</text>
+              <rect class="bar-before" x="0" y="22" width="260" height="30"/>
+              <text class="bar-value" x="268" y="43">40%</text>
+              <text class="bar-label" x="0" y="80">After</text>
+              <rect class="bar-after" x="0" y="88" width="104" height="30"/>
+              <text class="bar-value" x="112" y="109">16%</text>
+            </svg>
+            <figcaption>Forecast error</figcaption>
+          </figure>
+        </div>
+        <div class="project-extra"><div class="extra-label">How one forecast is built</div><div class="anim anim-shap" data-anim="shap" role="img" aria-label="Waterfall of the inputs that build one forecast"></div></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-title">
+            <span class="project-num">03</span>
+            <h2>Database knowledge agent</h2>
+          </div>
+          <div class="project-tags">AI AGENTS &middot; GOVERNANCE</div>
+        </div>
+        <div class="project-grid">
+          <div class="project-facts">
+            <div class="fact">
+              <div class="fact-label">Problem</div>
+              <p>An 8.2 TB production database had no documentation.</p>
+            </div>
+            <div class="fact">
+              <div class="fact-label">Move</div>
+              <p>Built an AI agent that maps and documents it, and asks a person before any change.</p>
+            </div>
+            <div class="fact">
+              <div class="fact-label">Result</div>
+              <p>600+ changes made. Every one approved by a person.</p>
+            </div>
+          </div>
+          <figure class="metric chart">
+            <svg viewBox="0 0 288 84" role="img" aria-label="Flow: Draft, Dry run, Person approves, Applied">
+              <rect class="flow-box" x="0" y="12" width="60" height="60"/>
+              <text class="flow-text" x="30" y="46">Draft</text>
+              <line class="flow-line" x1="63" y1="42" x2="70" y2="42"/>
+              <polygon class="flow-head" points="74,42 68,38.5 68,45.5"/>
+              <rect class="flow-box" x="76" y="12" width="60" height="60"/>
+              <text class="flow-text" x="106" y="46">Dry run</text>
+              <line class="flow-line" x1="139" y1="42" x2="146" y2="42"/>
+              <polygon class="flow-head" points="150,42 144,38.5 144,45.5"/>
+              <rect class="flow-box flow-box-hot" x="152" y="12" width="60" height="60"/>
+              <text class="flow-text flow-text-hot" x="182" y="40">Person</text>
+              <text class="flow-text flow-text-hot" x="182" y="53">approves</text>
+              <line class="flow-line" x1="215" y1="42" x2="222" y2="42"/>
+              <polygon class="flow-head" points="226,42 220,38.5 220,45.5"/>
+              <rect class="flow-box" x="228" y="12" width="60" height="60"/>
+              <text class="flow-text" x="258" y="46">Applied</text>
+            </svg>
+            <figcaption>600+ changes, 0 unattended</figcaption>
+          </figure>
+        </div>
+        <div class="project-extra"><div class="extra-label">The database as dots. Big dots are hubs.</div><div class="anim anim-map" data-anim="map" role="img" aria-label="Thousands of dots that gather into a map of twelve areas with a few hubs"></div></div>
+      </div>
+    </article>
+
+  </section>
+
+  <section class="lead-band" id="lead">
+    <div class="section-label">02 / HOW I LEAD</div>
+    <div class="lead-body">
+      <div class="anim anim-stairs" data-anim="stairs" data-theme="onblue" role="img" aria-label="Four steps rising, one per principle"></div>
+      <div class="lead-principles">
+        <div class="lead-principle">
+          <div class="lead-num">01</div>
+          <h3>Check the number where people read it.</h3>
+          <p class="lead-proof">Every fix is checked in the report people use, not only in the table.</p>
+        </div>
+        <div class="lead-principle">
+          <div class="lead-num">02</div>
+          <h3>No AI change goes live until a person approves it.</h3>
+          <p class="lead-proof">600+ AI changes so far. None ran on their own.</p>
+          <div class="anim anim-doors" data-anim="doors" data-theme="onblue" role="img" aria-label="Three views of the same map: names only, read only, and one approved write"></div>
+        </div>
+        <div class="lead-principle">
+          <div class="lead-num">03</div>
+          <h3>When the data says a claim is wrong, take the claim back.</h3>
+          <p class="lead-proof">We retracted our own "model beats humans" result after a units check.</p>
+        </div>
+        <div class="lead-principle">
+          <div class="lead-num">04</div>
+          <h3>Every finding ends as explained, ruled out, or still open.</h3>
+          <p class="lead-proof">Nothing gets dropped because a tidier story came along.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="talks">
+    <p class="sec-label">03 / TALKS</p>
+
+    <div class="talks-tl">
+      <div class="talks-tl-axis" aria-hidden="true">
+        <span class="talks-tl-line"></span>
+        <span class="talks-tl-tick" style="--x: 0%"></span>
+        <span class="talks-tl-tick" style="--x: 8.49%"></span>
+        <span class="talks-tl-tick" style="--x: 16.16%"></span>
+        <span class="talks-tl-tick" style="--x: 24.66%"></span>
+        <span class="talks-tl-tick" style="--x: 32.88%"></span>
+        <span class="talks-tl-tick" style="--x: 41.37%"></span>
+        <span class="talks-tl-tick" style="--x: 49.59%"></span>
+        <span class="talks-tl-tick" style="--x: 58.08%"></span>
+        <span class="talks-tl-tick" style="--x: 66.58%"></span>
+        <span class="talks-tl-tick" style="--x: 74.79%"></span>
+        <span class="talks-tl-tick" style="--x: 83.29%"></span>
+        <span class="talks-tl-tick" style="--x: 91.51%"></span>
+        <span class="talks-tl-month" style="--x: 4.25%">Jan</span>
+        <span class="talks-tl-month" style="--x: 12.33%">Feb</span>
+        <span class="talks-tl-month" style="--x: 20.41%">Mar</span>
+        <span class="talks-tl-month" style="--x: 28.77%">Apr</span>
+        <span class="talks-tl-month" style="--x: 37.13%">May</span>
+        <span class="talks-tl-month" style="--x: 45.48%">Jun</span>
+        <span class="talks-tl-month" style="--x: 53.84%">Jul</span>
+        <span class="talks-tl-month" style="--x: 62.33%">Aug</span>
+        <span class="talks-tl-month" style="--x: 70.69%">Sep</span>
+        <span class="talks-tl-month" style="--x: 79.04%">Oct</span>
+        <span class="talks-tl-month" style="--x: 87.40%">Nov</span>
+        <span class="talks-tl-month" style="--x: 95.76%">Dec</span>
+      </div>
+
+      <ol class="talks-tl-events" aria-label="2026 talk dates">
+        <li class="talks-tl-marker talks-tl-up talks-tl-left" style="--x: 21.10%">
+          <span class="talks-tl-stem"></span>
+          <span class="talks-tl-dot"></span>
+          <div class="talks-tl-label">
+            <strong>SIM Boston</strong>
+            <div class="talks-tl-date">Mar 19</div>
+          </div>
+        </li>
+        <li class="talks-tl-marker talks-tl-up talks-tl-right" style="--x: 75.07%">
+          <span class="talks-tl-stem"></span>
+          <span class="talks-tl-dot"></span>
+          <div class="talks-tl-label">
+            <strong>devopsdays Philadelphia</strong>
+            <div class="talks-tl-date">Oct 2</div>
+          </div>
+        </li>
+        <li class="talks-tl-marker talks-tl-down talks-tl-left" style="--x: 77.26%">
+          <span class="talks-tl-stem"></span>
+          <span class="talks-tl-dot"></span>
+          <div class="talks-tl-label">
+            <strong>Day of Data Pittsburgh</strong>
+            <div class="talks-tl-date">Oct 10</div>
+          </div>
+        </li>
+        <li class="talks-tl-marker talks-tl-up talks-tl-left talks-tl-upcoming" style="--x: 79.73%">
+          <span class="talks-tl-stem"></span>
+          <span class="talks-tl-dot"></span>
+          <div class="talks-tl-label">
+            <strong>devopsdays Boston</strong>
+            <div class="talks-tl-date">Oct 19 <span class="tag-up">UPCOMING</span></div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="mosaic">
+      <button type="button" class="tile-photo tile-wide"
+              data-meta="devopsdays Philadelphia &middot; Oct 2, 2026"
+              data-title="We Gave the Agent Production Credentials">
+        <img src="../assets/talks/phl-stage.jpg" alt="Anish Puthuraya speaking at devopsdays Philadelphia" loading="lazy">
+        <span class="tile-cap">devopsdays Philadelphia &middot; Oct 2, 2026</span>
+      </button>
+
+      <button type="button" class="tile-photo tile-wide"
+              data-meta="Day of Data Pittsburgh &middot; Oct 10, 2026"
+              data-title="The Best Model Was a Ratio: Hybrid Forecasting on Microsoft Fabric">
+        <img src="../assets/talks/pgh-teaching.jpg" alt="Anish Puthuraya speaking at Day of Data Pittsburgh" loading="lazy">
+        <span class="tile-cap">Day of Data Pittsburgh &middot; Oct 10, 2026</span>
+      </button>
+
+      <button type="button" class="tile-photo tile-tall"
+              data-meta="devopsdays Philadelphia &middot; Oct 2, 2026"
+              data-title="We Gave the Agent Production Credentials">
+        <img src="../assets/talks/phl-gesture.jpg" alt="Anish Puthuraya speaking at devopsdays Philadelphia" loading="lazy">
+        <span class="tile-cap">devopsdays Philadelphia &middot; Oct 2, 2026</span>
+      </button>
+
+      <button type="button" class="tile-photo tile-tall"
+              data-meta="Day of Data Pittsburgh &middot; Oct 10, 2026"
+              data-title="The Best Model Was a Ratio: Hybrid Forecasting on Microsoft Fabric">
+        <img src="../assets/talks/pgh-speaking.jpg" alt="Anish Puthuraya speaking at Day of Data Pittsburgh" loading="lazy">
+        <span class="tile-cap">Day of Data Pittsburgh &middot; Oct 10, 2026</span>
+      </button>
+
+      <button type="button" class="tile-photo"
+              data-meta="devopsdays Philadelphia &middot; Oct 2, 2026"
+              data-title="We Gave the Agent Production Credentials">
+        <img src="../assets/talks/phl-badge.jpg" alt="Anish Puthuraya speaking at devopsdays Philadelphia" loading="lazy">
+        <span class="tile-cap">devopsdays Philadelphia &middot; Oct 2, 2026</span>
+      </button>
+
+      <div class="tile-type">
+        <p class="tile-event">SIM Boston</p>
+        <p class="tile-title">Build Trust in Your Data with Transparency</p>
+        <p class="tile-date">Mar 19, 2026</p>
+      </div>
+
+      <div class="tile-type tile-type--blue tile-wide">
+        <p class="tile-event">devopsdays Boston</p>
+        <p class="tile-title">We Gave the Agent Production Credentials</p>
+        <p class="tile-date">Oct 19-20, 2026 <span class="tag-up">UPCOMING</span></p>
+      </div>
+    </div>
+
+    <ol class="talk-list">
+      <li class="talk-row">
+        <p class="talk-date">Oct 19-20, 2026</p>
+        <div class="talk-event">
+          <span class="talk-name">devopsdays Boston</span><span class="tag-up">UPCOMING</span>
+          <p class="talk-place">Cambridge, MA</p>
+        </div>
+        <p class="talk-title">We Gave the Agent Production Credentials</p>
+        <p class="talk-format">Conference session</p>
+      </li>
+      <li class="talk-row">
+        <p class="talk-date">Oct 10, 2026</p>
+        <div class="talk-event">
+          <span class="talk-name">Day of Data Pittsburgh</span> <span class="talk-paren">(SQLSaturday)</span>
+          <p class="talk-place">Pittsburgh, PA</p>
+        </div>
+        <p class="talk-title">The Best Model Was a Ratio: Hybrid Forecasting on Microsoft Fabric</p>
+        <p class="talk-format">60-minute session &middot; Data professionals at a free, community-run conference</p>
+      </li>
+      <li class="talk-row">
+        <p class="talk-date">Oct 2, 2026</p>
+        <div class="talk-event">
+          <span class="talk-name">devopsdays Philadelphia</span>
+          <p class="talk-place">Philadelphia, PA</p>
+        </div>
+        <p class="talk-title">We Gave the Agent Production Credentials</p>
+        <p class="talk-format">Ignite talk &middot; DevOps and platform engineers</p>
+      </li>
+      <li class="talk-row">
+        <p class="talk-date">Mar 19, 2026</p>
+        <div class="talk-event">
+          <span class="talk-name">SIM Boston</span> <span class="talk-paren">(Society for Information Management)</span>
+          <p class="talk-place">Boston, MA</p>
+        </div>
+        <p class="talk-title">Build Trust in Your Data with Transparency</p>
+        <p class="talk-format">Interactive session &middot; CIOs and technology executives</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="experience" id="experience">
+    <div class="section-label">04 / EXPERIENCE</div>
+    <div class="experience-body">
+
+      <article class="role">
+        <div class="role-meta">
+          <h3>Senior Manager, Data Engineering</h3>
+          <div class="role-subtitle">Data &amp; AI Leader</div>
+          <div class="role-org">Pyramid Global Hospitality &middot; Boston, MA</div>
+          <div class="role-dates">2023 to PRESENT</div>
+        </div>
+        <div class="role-points">
+          <p>Lead a team of 3 data engineers and partner with the COO and analytics leadership on data strategy.</p>
+          <p>Rebuilt the enterprise data platform on Microsoft Fabric as a medallion lakehouse, joining Opera, Amadeus, Salesforce and Delphi data.</p>
+          <p>Moved 250+ Azure workloads from personal logins to managed identities, with no major failures.</p>
+          <p>Cut cloud costs through an infrastructure audit, and built AI data quality checks that run five times a day.</p>
+        </div>
+      </article>
+
+      <article class="role">
+        <div class="role-meta">
+          <h3>Associate II</h3>
+          <div class="role-org">PwC &middot; Bangalore, India</div>
+          <div class="role-dates">2021 to 2022</div>
+        </div>
+        <div class="role-points">
+          <p>Led a two-person Cloud Analytics team for Nordstrom, building inventory tracking.</p>
+          <p>Tuned Spark clusters for 5x higher efficiency and a 50% cut in infrastructure costs.</p>
+          <p>Shipped ML models on Azure Databricks that predict claims.</p>
+        </div>
+      </article>
+
+      <article class="role">
+        <div class="role-meta">
+          <h3>Project Engineer</h3>
+          <div class="role-org">Wipro Technologies &middot; Pune, India</div>
+          <div class="role-dates">2018 to 2021</div>
+        </div>
+        <div class="role-points">
+          <p>Delivered analytics and automation for enterprise clients with Microsoft Power Platform and Power BI.</p>
+        </div>
+      </article>
+
+      <div class="role education">
+        <div class="role-meta">
+          <div class="edu-label">Education &amp; certification</div>
+        </div>
+        <div class="role-points">
+          <p><strong>M.S. in Business Analytics</strong>, Boston University, Questrom School of Business, 2023</p>
+          <p><strong>B.Tech.</strong>, IIT Bombay, 2018</p>
+          <p><strong>Microsoft Certified:</strong> Azure Data Engineer Associate (DP-203)</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="contact-label">05 / CONTACT</div>
+    <h2 class="contact-headline">Let's talk data.</h2>
+    <a class="contact-email" href="mailto:anish.gopalakrishna@gmail.com">anish.gopalakrishna@gmail.com</a>
+    <div class="contact-bar">
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/anish-puthuraya" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/aputhuraya" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="contact-location">Boston, MA</div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+    <figure class="lb-figure">
+      <img class="lb-img" id="lb-img" alt="">
+      <figcaption class="lb-caption">
+        <p class="lb-meta" id="lb-meta"></p>
+        <p class="lb-title" id="lb-title"></p>
+      </figcaption>
+    </figure>
+    <button class="lb-close" id="lb-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M3 3l12 12M15 3L3 15"/></svg>
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      var lightbox = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lb-img');
+      var lbMeta = document.getElementById('lb-meta');
+      var lbTitle = document.getElementById('lb-title');
+      var closeBtn = document.getElementById('lb-close');
+      var tiles = document.querySelectorAll('.tile-photo');
+      var opener = null;
+
+      function openTile(tile) {
+        var img = tile.querySelector('img');
+        opener = tile;
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lbMeta.textContent = tile.getAttribute('data-meta');
+        lbTitle.textContent = tile.getAttribute('data-title');
+        lightbox.hidden = false;
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        if (lightbox.hidden) { return; }
+        lightbox.hidden = true;
+        lbImg.removeAttribute('src');
+        if (opener) { opener.focus(); }
+      }
+
+      Array.prototype.forEach.call(tiles, function (tile) {
+        tile.addEventListener('click', function () { openTile(tile); });
+      });
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) { closeLightbox(); }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeLightbox(); }
+      });
+    })();
+  </script>
+  <script src="motion/core.js"></script>
+  <script src="motion/map.js"></script>
+  <script src="motion/doors.js"></script>
+  <script src="motion/count.js"></script>
+  <script src="motion/skyline.js"></script>
+  <script src="motion/curve.js"></script>
+  <script src="motion/shap.js"></script>
+  <script src="motion/stairs.js"></script>
+  <script src="switcher.js"></script>
+</body>
+</html>
