@@ -391,6 +391,7 @@ button { font: inherit; color: inherit; }
 }
 .tile-wide { grid-column: span 2; }
 .tile-tall { grid-row: span 2; }
+.tile-full { grid-column: 1 / -1; }
 .tile-photo {
   position: relative;
   display: block;
